@@ -1,0 +1,39 @@
+  <ion-header-bar align-title="center" class="bar-light">
+    <h1 class="title"><img class="title-image" src="../img/logo.png" width="176" height="30" /></h1>
+  </ion-header-bar>
+  
+  <ion-content class="padding content-stable">
+
+    <div class="list card">
+
+      <div class="item item-avatar">
+        <img src="../img/ipad.png">
+        <h2>Discussion avec Pascal IMBERT</h2>
+      </div>
+	</div>
+	
+			<div ng-show="messages.length" class="list card" ng-repeat="msg in messages">
+				<div class="item item-avatar">
+					<img src="../img/user.png">
+					<h2>{{msg.get('username')}}</h2>
+					<p>{{msg.get('date') | date:'dd--MM-yyyy hh:mm'}}</p>
+				  </div>
+
+				  <div class="item item-body">
+					<p>
+					  {{msg.get('text')}}
+					</p>
+				  </div>
+			</div>
+	   
+	 
+	  <h3>Votre message</h3>
+	  <div class="list">
+	  <label class="item item-input">
+          <textarea ng-model="data.messageText" placeholder="Message" required></textarea>
+	   </label>
+	   </div>
+       <button class="button button-block button-dark" ng-click="message(data)">Envoyer</button>
+
+  </ion-content>
+</ion-view>

@@ -35,6 +35,20 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     templateUrl: 'templates/register.html',
     controller: 'RegisterCtrl'
   })
+  
+  // Consultant description
+  .state('gallery', {
+    url: '/gallery',
+    templateUrl: 'templates/gallery.html',
+    controller: 'GalleryCtrl'
+  })
+  
+  // Workshop
+  .state('workshop', {
+    url: '/workshop',
+    templateUrl: 'templates/workshop.html',
+    controller: 'WorkshopCtrl'
+  })
 
   // setup an abstract state for the tabs directive
   .state('tab', {
@@ -55,12 +69,22 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
   
-    .state('tab.end', {
+  .state('tab.end', {
     url: '/end',
     views: {
       'tab-end': {
         templateUrl: 'templates/tab-end.html',
         controller: 'EndCtrl'
+      }
+    }
+  })
+  
+  .state('tab.chat', {
+    url: '/chat',
+    views: {
+      'tab-chat': {
+        templateUrl: 'templates/tab-chat.html',
+        controller: 'ChatCtrl'
       }
     }
   })
@@ -81,7 +105,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 })
 
 .run(function ($state, $rootScope) {
-  Parse.initialize('cs1D8UKaAlmMusem0uX7zy5yWMuPpYvtIs8ZQNti', 'Y4stuk3298nFuqHpV7a2kclVeuMQfi8uObLrCKNi');
+  Parse.initialize('tJLYNOdBrYS3h6l6HhP56HXK0jRvzelq9QJwPGr9', 'AC4wDNXhEWrdKzZL1gL0ZwiIPiVnyvmjmknn6OXK');
   var currentUser = Parse.User.current();
   if (currentUser) {
     $rootScope.user = currentUser;

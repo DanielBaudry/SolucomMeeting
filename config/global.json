@@ -4,11 +4,11 @@
   },
   "applications": {
     "_default": {
-      "link": "solucomandshare"
+      "link": "solucommeeting"
     },
-    "solucomandshare": {
-      "applicationId": "cs1D8UKaAlmMusem0uX7zy5yWMuPpYvtIs8ZQNti",
-      "masterKey": "AuBL8CnOCXvJDMFHq4CLqUOckcSagpYguFfKNjxy"
+    "solucommeeting": {
+      "applicationId": "tJLYNOdBrYS3h6l6HhP56HXK0jRvzelq9QJwPGr9",
+      "masterKey": "EtRhs50ZKiXUsxffQa07uB6GLLbc0sUJ5WJen4sz"
     }
   }
 }
