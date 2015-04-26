@@ -8,9 +8,9 @@
       Vos ateliers
     </h4>
 
-    <ul class="list card" ng-show="questionBlockAnswer" ng-repeat="workshop in workshops">
+    <ul class="list card" ng-show="workshops.length" ng-repeat="workshop in workshops">
 
-      <a align="center" class="item item-text-wrap" ng-click="workshop({{workshop.get('id')}})">
+      <a align="center" class="item item-text-wrap" ng-click="loadWorkshop({{workshop.get('number')}})">
         {{workshop.get('title')}}
       </a>
 

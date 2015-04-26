@@ -63,11 +63,14 @@ angular.module('starter.controllers', [])
 		  Parse.User.logIn($scope.user.username, "solucom", {
 		  success: function(user) {
 			// Do stuff after successful login.
+			$ionicLoading.hide();
 			$state.go('tab.quiz', {clear: true});
 		  },
 		  error: function(user, error) {
 			// The login failed. Check error to see why.
+			$ionicLoading.hide();
 			$scope.error.message = 'Utilisateur inexistant';
+			 $scope.$apply();
           }
 		});
 		//
@@ -77,13 +80,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('QuizCtrl', function($scope, $state, $rootScope, $ionicPopup, $ionicLoading) {
-	alert('quizCtrl');
+	
 	var Workshop = Parse.Object.extend("Workshop");
     var query = new Parse.Query(Workshop);
 	query.find({
 	  success: function(results) {
 		// Do something with the returned Parse.Object values
-		alert('Retrieved');
 		$scope.workshops = results;
 		$scope.$apply();
 	  },
@@ -92,40 +94,58 @@ angular.module('starter.controllers', [])
 	  }
 	});
 	
-	$scope.workshop = function(number) {
-		var Consultant = Parse.Object.extend("Consultant");
-		var query = new Parse.Query(Consultant);
-		query.contains('Workshop', number).find({
-		  success: function(results) {
-			// Do something with the returned Parse.Object values
-			$scope.consultants = results;
-			$scope.$apply();
-			$state.go('workshop', {clear: true});
-		  },
-		  error: function(error) {
-			alert("Error: " + error.code + " " + error.message);
-		  }
-		});
+	$scope.loadWorkshop = function(number) {
+		localStorage.setItem("workshop_number", number);
+		$state.go('workshop', {clear: false});
 	  };
 
 })
 
 .controller('WorkshopCtrl', function($scope, $state) {
 	
-	$scope.$apply();
+	var number = localStorage.getItem("workshop_number");
+	var Consultant = Parse.Object.extend("Consultant");
+	var query = new Parse.Query(Consultant);
+	query.equalTo('Workshop', parseInt(number, 10));
+	query.find({
+	  success: function(results) {
+		// Do something with the returned Parse.Object values
+		$scope.consultants = results;
+		$scope.$apply();
+	  },
+	  error: function(error) {
+		alert("Error: " + error.code + " " + error.message);
+	  }
+	});
 
 })
 
 .controller('AboutCtrl', function($scope, $ionicPopup, $state) {
 
-	$scope.extfile = function() {
-		var f = "../img/revue_VF.pdf";
-		console.log(f);
-		var ref = window.open(f, '_self', 'location=yes', 'closebuttoncaption=Return');
-	  };
+	var currentUser = Parse.User.current();
+	var Consultant = Parse.Object.extend("Consultant");
+	var query = new Parse.Query(Consultant);
+	if( currentUser.get('Parrain') != null){
+		query.get(currentUser.get('Parrain').id,{
+		  success: function(results) {
+			// Do something with the returned Parse.Object values
+			$scope.parrain = results;
+			$scope.$apply();
+		  },
+		  error: function(error) {
+			alert("Error: " + error.code + " " + error.message);
+		  }
+		});
+
+		$scope.extfile = function() {
+			var f = "../img/revue_VF.pdf";
+			console.log(f);
+			var ref = window.open(f, '_self', 'location=yes', 'closebuttoncaption=Return');
+		  };
+	}else{
+		$scope.parrain = null;
+	}
   
-    $scope.pageLoaded = function() {
-    };
 	
 	$scope.feedback = function(itemAnswer) {
 
@@ -174,29 +194,18 @@ angular.module('starter.controllers', [])
 })
 
 .controller('EndCtrl', function($scope, $state, $rootScope, $ionicPopup, $ionicLoading, $ionicModal, $rootScope, $timeout) {
-	$scope.questionsImgResult = JSON.parse(localStorage["questionsImgResult"]);
-	$scope.questionsNameResult = JSON.parse(localStorage["questionsNameResult"]);
-	$scope.questionsResult = {name: $scope.questionsNameResult, img: $scope.questionsImgResult};
-	
-	$scope.restart = function() 
-	{
-		var a = [];
-		var currentUser = Parse.User.current();
-		
-		$rootScope.user = currentUser;
-		
-		localStorage.setItem('questionsAnswered', JSON.stringify(a));
-		$scope.questionsAnswered = JSON.parse(localStorage["questionsAnswered"]);
-		localStorage.setItem('questionsImgResult', JSON.stringify(a));
-		$scope.questionsAnswered = JSON.parse(localStorage["questionsImgResult"]);
-		localStorage.setItem('questionsNameResult', JSON.stringify(a));
-		$scope.questionsAnswered = JSON.parse(localStorage["questionsNameResult"]);
-		
-		console.log($scope.questionsAnswered);
+	var Consultant = Parse.Object.extend("Consultant");
+    var query = new Parse.Query(Consultant);
+	query.find({
+	  success: function(results) {
+		// Do something with the returned Parse.Object values
+		$scope.consultants = results;
 		$scope.$apply();
-		
-		$state.go('tab.quiz', {clear: true});
-	}
+	  },
+	  error: function(error) {
+		alert("Error: " + error.code + " " + error.message);
+	  }
+	});
 
 })
 

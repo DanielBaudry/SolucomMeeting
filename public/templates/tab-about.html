@@ -11,19 +11,29 @@
         <h2>Solucom'Meeting</h2>
       </div>
 
-      <div class="item item-body">
+      <div ng-show="parrain != null" class="item item-body">
 	  
-		<a href="#/gallery">Trombinoscope</a>
+		<h3>Ton parrain</h3>
+		
+		<span>{{parrain.get('Name')}}</span>
 	  
+	  </div>
+	  
+	  <div class="item assertive">
+	  <h2>Réaction</h2>
 		<button class="button button-block button-dark" ng-click="feedback()">
 			Donnez-nous votre avis !
 		</button>
-	
-		<button class="button button-block button-positive" on-tap="extfile();">Télécharger la revue de presse</button>
+		
+	</div>
+	<div class="item assertive">
+		<h2>Documents</h2>
 		
 		<button class="button button-block button-positive" on-tap="extfile();">Télécharger mon invitation</button>
 		
-      </div>
+		<button class="button button-block button-positive" on-tap="extfile();">Télécharger la revue de presse</button>
+		
+      
     </div>
 
    <!--  <button class="button button-block button-dark" ng-click="feedback()">
