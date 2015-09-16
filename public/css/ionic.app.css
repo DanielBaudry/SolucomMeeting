@@ -2534,7 +2534,7 @@ cite {
   text-align: center; }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  color: #00477F;
+  color: rgb(126,21,46);
   font-weight: 500;
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   line-height: 1.2; }
@@ -2778,11 +2778,11 @@ a.subdued {
       background: transparent; }
   .bar.bar-light {
     border-color: #ddd;
-    background-color: white;
+    background-color: rgb(126,21,45);
     background-image: linear-gradient(0deg, #ddd, #ddd 50%, transparent 50%);
     color: #444; }
     .bar.bar-light .title {
-      color: #444; }
+      color: #fff; }
     .bar.bar-light.bar-footer {
       background-image: linear-gradient(180deg, #ddd, #ddd 50%, transparent 50%); }
   .bar.bar-stable {
@@ -3200,7 +3200,7 @@ a.subdued {
   border-color: #ddd;
   background-color: #fff;
   background-image: linear-gradient(0deg, #ddd, #ddd 50%, transparent 50%);
-  color: #444; }
+  color: rgb(126,21,46); }
   .tabs-light > .tabs .tab-item .badge, .tabs.tabs-light .tab-item .badge {
     background-color: #444;
     color: #fff; }
@@ -4263,7 +4263,7 @@ a.subdued {
 .item, .item h1, .item h2, .item h3, .item h4, .item h5, .item h6, .item p, .item-content, .item-content h1, .item-content h2, .item-content h3, .item-content h4, .item-content h5, .item-content h6, .item-content p {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; }
+  white-space: normal; }
 
 a.item {
   color: inherit;
@@ -5065,7 +5065,7 @@ input, button, select, textarea {
   padding: 7px 10px 7px 0px;
   max-width: 200px;
   width: 35%;
-  color: #00477F;
+  color: rgb(126,21,46);
   font-size: 16px; }
 
 .placeholder-icon {
@@ -5765,10 +5765,10 @@ progress {
     margin-bottom: 10px; }
   .button.button-light {
     border-color: #ddd;
-    background-color: #fff;
-    color: #444; }
+    background-color: rgb(126,21,46);
+    color: #fff; }
     .button.button-light:hover {
-      color: #444;
+      color: #BBB;
       text-decoration: none; }
     .button.button-light.active, .button.button-light.activated {
       border-color: #ccc;
@@ -7817,4 +7817,30 @@ $ios-transition-box-shadow-end: -200px 0px 200px rgba(0,0,0,0.15), -5px 0px 5px 
   transition: none !important; }
 
 .content-stable {
-  background-color: #C4D5E8; }
+  background-color: #FFFFFF; }
+
+  
+ /*
+ Personal code
+ */
+  
+  
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+ 
+.video-container iframe, .video-container object, .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+  
+  
+.italic-text{
+	font-style: italic;
+}
+  

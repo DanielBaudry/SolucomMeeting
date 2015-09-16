@@ -5,23 +5,23 @@
 -->
 <ion-tabs class="tabs-light tabs-icon-top" ng-controller="tabsCtrl">
 
-  <!-- Quiz Tab -->
-  <ion-tab title="Le jeu" icon="icon ion-chatboxes" href="#/tab/quiz" class="{{endGame()}}">
-    <ion-nav-view name="tab-quiz"></ion-nav-view>
-  </ion-tab>
-
-  <!-- A propos Tab -->
-  <ion-tab title="Informations" icon="icon ion-information-circled" href="#/tab/about">
+	<!-- Information-->
+  <ion-tab title="Votre espace" icon="icon ion-information-circled" href="#/tab/about">
     <ion-nav-view name="tab-about"></ion-nav-view>
   </ion-tab>
   
+  <!-- Quiz Tab -->
+  <ion-tab title="Vos interlocuteurs" icon="icon ion-chatboxes" href="#/tab/quiz" class="{{endGame()}}">
+    <ion-nav-view name="tab-quiz"></ion-nav-view>
+  </ion-tab>
+  
   <!-- Chat Tab -->
-   <ion-tab title="Chat" icon="icon ion-chatbox" href="#/tab/chat">
+   <ion-tab title="Vos questions" icon="icon ion-chatbox" href="#/tab/chat">
     <ion-nav-view name="tab-chat"></ion-nav-view>
   </ion-tab>
   
   <!-- End Tab -->
-  <ion-tab title="Vos interlocuteurs" icon="icon ion-information-circled" href="#/tab/end">
+  <ion-tab title="Votre avis" icon="icon ion-information-circled" href="#/tab/end">
     <ion-nav-view name="tab-end"></ion-nav-view>
   </ion-tab>
 

@@ -1,34 +1,63 @@
   <ion-header-bar align-title="center" class="bar-light">
-    <h1 class="title"><img class="title-image" src="../img/logo.png" width="176" height="30" /></h1>
+    <!--<h1 class="title"><img class="title-image" src="../img/logo.png" width="176" height="30" /></h1> -->
+	<h1 class="title"><strong>Solucom</strong>'<span class="italic-text">meeting</span></h1>
   </ion-header-bar>
 
    <ion-content class="content-stable">
    
-    <h4 align="center" class="text-dark">
-      Trombinoscope de l'évènement
+    <h4 align="center" class="text-light">
+      Donnez-nous votre avis
     </h4>
+	
+	<h5 align="center" class="text-dark">
+	  Votre avis nous intéresse. Nous vous invitons à répondre aux 3 questions ci-dessous :
+	</h5>
 
-	<div ng-show="consultants.length" class="list card" ng-repeat="consultant in consultants">
-		<div class="item assertive">
-			
-			<h2>{{consultant.get('Name')}}</h2>
-			<p>
-			  {{consultant.get('Job')}}
-			</p>
-		  </div>
-		  
-		  <div class="item item-image">
-			<img src="../img/{{consultant.get('Image')}}">
-		  </div>
-
-		  <div class="item assertive">
-			<p>
-			  {{consultant.get('School')}}
-			  <br >
-			  Promo {{consultant.get('Year')}}
-			</p>
-		  </div>
+	<div class="item assertive">
+	  
+	  <div class="list" style="text-align: center">
+		<h4 class="text-dark">Êtes-vous satisfait(e) de votre soirée Solucom’<span class="italic-text">meeting</span> ? 
+		</h4>
+		<div style="float: left; position: relative; left: 50%;">
+			<div style="float: left; position: relative; left: -50%;">
+			<div style="float:left; margin-top: 5px; margin-right: 10px"><img src="../img/bad.png" width="24" height="24"></div>
+			<div style="float:left;">
+			<input type="radio" role="radio" name="group1" value="1" ng-model="data.feedbackQ1" style="margin: 10px 10px 0 0;"/>
+			<input type="radio" role="radio" name="group1" value="2" ng-model="data.feedbackQ1" style="margin: 10px 10px 0 0;"/>
+			<input type="radio" role="radio" name="group1" value="3" ng-model="data.feedbackQ1" style="margin: 10px 10px 0 0;"/>
+			<input type="radio" role="radio" name="group1" value="4" ng-model="data.feedbackQ1" style="margin: 10px 10px 0 0;"/>
+			<input type="radio" role="radio" name="group1" value="5" ng-model="data.feedbackQ1" style="margin: 10px 0 0 0;"/>
+			</div>
+			<div style="float:left; margin-top: 5px; margin-left: 10px"><img src="../img/good.png" width="24" height="24"></div></div>
+		</div>
+	  </div>
 	</div>
+	  
+	<div class="item assertive">
+	  <div class="list" style="text-align: center">
+		<h4 class="text-dark">Avez-vous pu échanger avec nos collaborateurs sur tous les sujets qui vous intéressaient ? 
+		</h4>
+		<p>Oui
+		<input type="radio" role="radio" name="group2" value="oui" ng-model="data.feedbackQ2" style="margin: 10px 10px 0 0;"/>
+		<input type="radio" role="radio" name="group2" value="non" ng-model="data.feedbackQ2" style="margin: 10px 0 0 0;"/>
+		Non</p>
+	  </div>
+	</div>
+	
+	<div class="item assertive">
+		<div class="list" style="text-align: center">
+			<h4 class="text-dark">Si ce n’est pas le cas, quels sont les sujets que vous auriez aimés aborder ? 
+			</h4>
+			<textarea ng-model="data.feedbackText" placeholder="Commentaires" style="height:150px;"></textarea>
+		</div>
+	</div>
+	
+	   <button class="button button-block button-light" ng-click="feedback()">
+		  Envoyer
+	  </button>
+	
+	
+		
     
 	
 	

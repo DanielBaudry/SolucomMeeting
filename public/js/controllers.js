@@ -34,7 +34,7 @@ angular.module('starter.controllers', [])
     $scope.register = function () {
 
       $ionicLoading.show({
-        template: 'Inscription en cours...'
+        template: 'Connexion en cours...'
       });
 
       //console.log("username : "  + $scope.user.username + " email " + $scope.user.email);
@@ -64,12 +64,13 @@ angular.module('starter.controllers', [])
 		  success: function(user) {
 			// Do stuff after successful login.
 			$ionicLoading.hide();
-			$state.go('tab.quiz', {clear: true});
+			$state.go('tab.about', {clear: true});
 		  },
 		  error: function(user, error) {
 			// The login failed. Check error to see why.
 			$ionicLoading.hide();
-			$scope.error.message = 'Utilisateur inexistant';
+			Parse.User.logOut();
+			$scope.error.message = 'Erreur de login';
 			 $scope.$apply();
           }
 		});
@@ -95,8 +96,24 @@ angular.module('starter.controllers', [])
 	});
 	
 	$scope.loadWorkshop = function(number) {
-		localStorage.setItem("workshop_number", number);
-		$state.go('workshop', {clear: false});
+		var Workshop = Parse.Object.extend("Workshop");
+		var query = new Parse.Query(Workshop);
+		query.equalTo('number', parseInt(number, 10));
+		query.find({
+		  success: function(results) {
+			// Do something with the returned Parse.Object values
+			if( parseInt(number, 10) != 0){
+				localStorage.setItem("workshop", results[0].get("title"));
+			}else{
+				localStorage.setItem("workshop", "");
+			}
+			localStorage.setItem("workshop_number", number);
+			$state.go('workshop', {clear: false});
+		  },
+		  error: function(error) {
+			alert("Error: " + error.code + " " + error.message);
+		  }
+		});
 	  };
 
 })
@@ -106,11 +123,14 @@ angular.module('starter.controllers', [])
 	var number = localStorage.getItem("workshop_number");
 	var Consultant = Parse.Object.extend("Consultant");
 	var query = new Parse.Query(Consultant);
-	query.equalTo('Workshop', parseInt(number, 10));
+	if( parseInt(number, 10) != 0){
+		query.equalTo('Workshop', parseInt(number, 10));
+	}
 	query.find({
 	  success: function(results) {
 		// Do something with the returned Parse.Object values
 		$scope.consultants = results;
+		$scope.workshop = localStorage.getItem("workshop");
 		$scope.$apply();
 	  },
 	  error: function(error) {
@@ -122,6 +142,21 @@ angular.module('starter.controllers', [])
 
 .controller('AboutCtrl', function($scope, $ionicPopup, $state) {
 
+	$scope.extfile = function() {
+		var f = "../img/revue_VF.pdf";
+		console.log(f);
+		var ref = window.open(f, '_self', 'location=yes', 'closebuttoncaption=Return');
+		return false;
+	};
+	  
+	  
+	$scope.extfile2 = function() {
+		var f = "../img/invitation.pdf";
+		console.log(f);
+		var ref = window.open(f, '_self', 'location=yes', 'closebuttoncaption=Return');
+		return false;
+	};
+
 	var currentUser = Parse.User.current();
 	var Consultant = Parse.Object.extend("Consultant");
 	var query = new Parse.Query(Consultant);
@@ -129,6 +164,7 @@ angular.module('starter.controllers', [])
 		query.get(currentUser.get('Parrain').id,{
 		  success: function(results) {
 			// Do something with the returned Parse.Object values
+			$scope.user = currentUser;
 			$scope.parrain = results;
 			$scope.$apply();
 		  },
@@ -136,76 +172,46 @@ angular.module('starter.controllers', [])
 			alert("Error: " + error.code + " " + error.message);
 		  }
 		});
-
-		$scope.extfile = function() {
-			var f = "../img/revue_VF.pdf";
-			console.log(f);
-			var ref = window.open(f, '_self', 'location=yes', 'closebuttoncaption=Return');
-		  };
+		
 	}else{
 		$scope.parrain = null;
 	}
-  
-	
-	$scope.feedback = function(itemAnswer) {
-
-    $scope.data = {};
-
-    var alertPopup = $ionicPopup.alert({
-          title: '<h3>Vos impressions</h3>',
-          template: '<textarea ng-model="data.feedbackText" placeholder="Commentaires" style="height:200px;"></textarea>',
-          scope: $scope,
-          buttons: [
-            {
-              text: '<b>Envoyer</b>',
-              type: 'button-dark',
-              onClick: function(e) {
-                return $scope.data.feedbackText;
-              }
-            },
-          ]
-        });
-
-    alertPopup.then(function(res) {
-
-      var Feedback = Parse.Object.extend("Feedback");
-      var feedback = new Feedback();
-      var currentUser = Parse.User.current();
-
-      feedback.set("text", $scope.data.feedbackText);
-      feedback.set("email", currentUser.get("email"));
-
-      feedback.save(null, {
-        success: function(result) {
-          // Execute any logic that should take place after the object is saved.
-          console.log('New object created with objectId: ' + result.id);
-        },
-        error: function(result, error) {
-          // Execute any logic that should take place if the save fails.
-          // error is a Parse.Error with an error code and message.
-          alert('Failed to create new object, with error code: ' + error.message);
-        }
-      });
-
-    });
-
-  };
 
 })
 
 .controller('EndCtrl', function($scope, $state, $rootScope, $ionicPopup, $ionicLoading, $ionicModal, $rootScope, $timeout) {
-	var Consultant = Parse.Object.extend("Consultant");
-    var query = new Parse.Query(Consultant);
-	query.find({
-	  success: function(results) {
-		// Do something with the returned Parse.Object values
-		$scope.consultants = results;
-		$scope.$apply();
-	  },
-	  error: function(error) {
-		alert("Error: " + error.code + " " + error.message);
-	  }
-	});
+	$scope.data = {};
+	
+	$scope.feedback = function(){
+		
+		var currentUser = Parse.User.current();
+		// TODO: save feedback
+		var Feedback = Parse.Object.extend("Feedback");
+		var feedback = new Feedback();
+		var currentUser = Parse.User.current();
+		
+		feedback.set("question1", $scope.data.feedbackQ1);
+		feedback.set("question2", $scope.data.feedbackQ2);
+		feedback.set("text", $scope.data.feedbackText);
+		feedback.set("email", currentUser.get("email"));
+		  
+		feedback.save(null, {
+			success: function(result) {
+			   // Execute any logic that should take place after the object is saved.
+			   console.log('New object created with objectId: ' + result.id);
+			   // TODO: set user value so we know if the user already gave its feedback
+			   $scope.data = {};
+			   $scope.$apply();
+			},
+			error: function(result, error) {
+			   // Execute any logic that should take place if the save fails.
+			   // error is a Parse.Error with an error code and message.
+			   alert('Failed to create new object, with error code: ' + error.message);
+			}
+		});
+	}
+	
+	
 
 })
 
@@ -249,7 +255,7 @@ angular.module('starter.controllers', [])
       message.set("text", data.messageText);
 	  message.set("date", new Date());
       message.set("email", currentUser.get("email"));
-	  message.set("username", currentUser.get("username"));
+	  message.set("username", currentUser.get("Nom"));
 	  
 	  data.messageText="";
 

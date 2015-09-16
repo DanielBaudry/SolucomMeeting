@@ -1,5 +1,5 @@
   <ion-header-bar align-title="center" class="bar-light">
-    <h1 class="title"><img class="title-image" src="../img/logo.png" width="176" height="30" /></h1>
+    <h1 class="title"><strong>Solucom</strong>'<span class="italic-text">meeting</span></h1>
   </ion-header-bar>
   
   <ion-content class="padding content-stable">
@@ -8,9 +8,20 @@
 
       <div class="item item-avatar">
         <img src="../img/ipad.png">
-        <h2>Discussion avec Pascal IMBERT</h2>
+        <h2>Posez dès maintenant toutes vos questions</h2>
+		<p>Pascal Imbert vous répondra lors de la soirée
+		</p>
       </div>
 	</div>
+	
+	
+	<h3>Votre message</h3>
+	  <div class="list">
+	  <label class="item item-input">
+          <textarea ng-model="data.messageText" placeholder="Message" required></textarea>
+	   </label>
+	   </div>
+       <button class="button button-block button-light" ng-click="message(data)">Envoyer</button>
 	
 			<div ng-show="messages.length" class="list card" ng-repeat="msg in messages">
 				<div class="item item-avatar">
@@ -25,15 +36,6 @@
 					</p>
 				  </div>
 			</div>
-	   
-	 
-	  <h3>Votre message</h3>
-	  <div class="list">
-	  <label class="item item-input">
-          <textarea ng-model="data.messageText" placeholder="Message" required></textarea>
-	   </label>
-	   </div>
-       <button class="button button-block button-dark" ng-click="message(data)">Envoyer</button>
 
   </ion-content>
 </ion-view>

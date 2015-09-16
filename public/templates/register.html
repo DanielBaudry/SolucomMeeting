@@ -1,22 +1,24 @@
 <ion-view hide-nav-bar="true">
   <ion-header-bar align-title="center" class="bar-light">
-    <h1 class="title"><img class="title-image" src="../img/logo.png" width="176" height="30" /></h1>
+	<h1 class="title"><strong>Solucom</strong>'<span class="italic-text">meeting</span></h1>
   </ion-header-bar>
 
   <ion-content class="content-stable" padding="true">
-
+	<div align="center" >
+		<img class="title-image" src="../img/logo.png" width="176" height="30" />
+	</div>
     <h4 align="center" class="text-dark">
-      Inscrivez-vous pour commencer à jouer!
+      Identifiez-vous pour en apprendre plus sur notre événement Solucom’<span class="italic-text">meeting</span>
     </h4>
 
     <div class="list">
       <label class="item item-input">
         <span class="input-label">Nom</span>
-        <input type="text" ng-model="user.username">
+        <input type="text" autocorrect="off" autocapitalize="none" ng-model="user.username">
       </label>
       <label class="item item-input">
         <span class="input-label">Email</span>
-        <input type="text" ng-model="user.email">
+        <input type="email" autocorrect="off" autocapitalize="none" ng-model="user.email">
       </label>
     </div>
 
@@ -24,8 +26,8 @@
       <p>{{error.message}}</p>
     </div>
 
-    <button class="button button-block button-dark" ng-click="register()">
-      Lancer le jeu !
+    <button class="button button-block button-light" ng-click="register()">
+      Connexion
     </button>
   </ion-content>
 </ion-view>

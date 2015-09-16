@@ -1,16 +1,30 @@
   <ion-header-bar align-title="center" class="bar-light">
-    <h1 class="title"><img class="title-image" src="../img/logo.png" width="176" height="30" /></h1>
+    <h1 class="title"><strong>Solucom</strong>'<span class="italic-text">meeting</span></h1>
   </ion-header-bar>
   
   <ion-content class="padding content-stable">
 
     <div class="list card">
 
-      <div class="item item-avatar">
-        <img src="../img/ipad.png">
-        <h2>Solucom'Meeting</h2>
-      </div>
-
+      <div class="item assertive">
+         <img src="../img/logo.png" width="176" height="30"/>
+		 <br >
+		 
+			<p>Bienvenue {{user.get('Nom')}} ! 
+			<br >Nous sommes ravis de vous confirmer votre participation à l’événement Solucom'<span class="italic-text">meeting</span> du <b>17 septembre 2015</b>.
+			<br >Nous vous attendons à <b>18h30</b>, à la <b>Maison Montmartre</b>.
+			</p>
+	  </div>
+	  
+	  <div class="card">
+		<ion-item>
+			<h3>Pascal IMBERT vous invite à lui poser toutes vos questions</h3>
+			<div class="video-container">
+				<iframe src="https://www.youtube.com/embed/cjiH3rpEedw?rel=0" frameborder="0" width="560" height="315"></iframe>
+			</div>
+		</ion-item>
+	</div>
+	  
       <div ng-show="parrain != null" class="item item-body">
 	  
 		<h3>Ton parrain</h3>
@@ -19,19 +33,12 @@
 	  
 	  </div>
 	  
-	  <div class="item assertive">
-	  <h2>Réaction</h2>
-		<button class="button button-block button-dark" ng-click="feedback()">
-			Donnez-nous votre avis !
-		</button>
-		
-	</div>
 	<div class="item assertive">
 		<h2>Documents</h2>
 		
-		<button class="button button-block button-positive" on-tap="extfile();">Télécharger mon invitation</button>
+		<button class="button button-block button-light" on-tap="extfile2();" onclick="extfile2();">Télécharger votre invitation</button>
 		
-		<button class="button button-block button-positive" on-tap="extfile();">Télécharger la revue de presse</button>
+		<button class="button button-block button-light" on-tap="extfile();" onclick="extfile();">Télécharger la revue de presse</button>
 		
       
     </div>
